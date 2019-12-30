@@ -6,9 +6,13 @@ import (
 	"github.com/gorilla/mux"
 )
 
-func routes() {
+// Router for application
+func Router() *mux.Router {
 	r := mux.NewRouter()
 
-	r.HandleFunc("/signIn", api.SignIn).Methods("POST")
-	r.HandleFunc("/signUp", api.SignUp).Methods("POST")
+	r.HandleFunc("/home", api.Home)
+	r.HandleFunc("/signin", api.SignIn).Methods("POST")
+	r.HandleFunc("/signup", api.SignUp).Methods("POST")
+
+	return r
 }
