@@ -4,7 +4,7 @@ go 1.12
 
 require (
 	github.com/creack/pty v1.1.9 // indirect
-	github.com/dgrijalva/jwt-go v3.2.0+incompatible // indirect
+	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/gorilla/mux v1.7.3
 	github.com/kr/pty v1.1.8 // indirect
 	github.com/rogpeppe/go-internal v1.5.1 // indirect

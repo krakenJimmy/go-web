@@ -6,6 +6,10 @@ import (
 	"net/http"
 	"samples/web-basic/models"
 
+	"github.com/dgrijalva/jwt-go"
+
+	"samples/web-basic/tools"
+
 	"go.uber.org/zap"
 )
 
@@ -31,7 +35,7 @@ func SignUp(w http.ResponseWriter, r *http.Request) {
 
 	logger, _ := zap.NewDevelopment()
 	zap.ReplaceGlobals(logger)
-	zap.S().Infow("signup user is", "info", user, "error", err)
+	zap.S().Infow("signup user is", "info", user, "error", err, "ip", tools.GetIP(r.RemoteAddr))
 
 	if user.UserName == "" || user.Password == "" {
 		authResponse := AuthResponse{
@@ -43,10 +47,33 @@ func SignUp(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	var jwtKey = []byte("tRx10l%W7sU$1A5A%")
+
+	type MyClaims struct {
+		UserID   int    `json:"user_id"`
+		UserName string `json:"username"`
+		jwt.StandardClaims
+	}
+
+	claims := MyClaims{
+		user.ID,
+		user.UserName,
+		jwt.StandardClaims{
+			ExpiresAt: 15000,
+			Issuer:    "bude",
+		},
+	}
+
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+	tokenString, err := token.SignedString(jwtKey)
+	if err != nil {
+		zap.S().Infow("jwt result", "error", err, "token", tokenString)
+	}
+
 	authResponse := AuthResponse{
 		Errcode: 200,
 		Errmsg:  "ok",
-		Token:   "success",
+		Token:   tokenString,
 	}
 
 	json.NewEncoder(w).Encode(authResponse)
