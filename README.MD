@@ -26,3 +26,12 @@ This repository is the exercise of my road for learning go
 ## website that helps me slove problem 
 
 [set zap log](https://blog.sandipb.net/2018/05/04/using-zap-working-with-global-loggers/)
+
+### how to log with logrus
+
+```go
+log.SetReportCaller(true)
+log.WithFields(log.Fields{
+        "user": fmt.Sprintf("%+v", user),
+}).Info()
+```
