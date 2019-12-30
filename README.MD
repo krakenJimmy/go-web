@@ -1,4 +1,8 @@
-# go resources I learned from
+# Introduce
+
+This repository is the exercise of my road for learning go
+
+### go resources I learned from
 
 [https://www.sohamkamani.com/blog/golang](https://www.sohamkamani.com/blog/golang)
 
