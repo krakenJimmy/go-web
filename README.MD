@@ -21,3 +21,8 @@ This repository is the exercise of my road for learning go
 [https://www.alexedwards.net/blog/how-to-properly-parse-a-json-request-body](https://www.alexedwards.net/blog/how-to-properly-parse-a-json-request-body)
 
 [https://gowebexamples.com/routes-using-gorilla-mux/](https://gowebexamples.com/routes-using-gorilla-mux/)
+
+
+## website that helps me slove problem 
+
+[set zap log](https://blog.sandipb.net/2018/05/04/using-zap-working-with-global-loggers/)

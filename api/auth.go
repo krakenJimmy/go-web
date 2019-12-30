@@ -3,9 +3,10 @@ package api
 import (
 	"encoding/json"
 	"fmt"
-	"log"
 	"net/http"
 	"samples/web-basic/models"
+
+	"go.uber.org/zap"
 )
 
 // AuthResponse is the result of Auth
@@ -28,7 +29,10 @@ func SignUp(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 	}
 
-	log.Println("User: %+v", user)
+	logger, _ := zap.NewDevelopment()
+	zap.ReplaceGlobals(logger)
+	zap.S().Infow("signup user is", "info", user, "error", err)
+
 	if user.UserName == "" || user.Password == "" {
 		authResponse := AuthResponse{
 			Errcode: 1000,
