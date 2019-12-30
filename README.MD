@@ -2,7 +2,13 @@
 
 This repository is the exercise of my road for learning go
 
-### go resources I learned from
+## Features
+
++ signin and signup with jwt auth
++ file upload
++ etc...
+
+## go resources I learned from
 
 [https://www.sohamkamani.com/blog/golang](https://www.sohamkamani.com/blog/golang)
 
