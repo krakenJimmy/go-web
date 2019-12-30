@@ -2,7 +2,6 @@ package api
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"samples/web-basic/models"
 	"time"
@@ -30,11 +29,6 @@ type MyJWTClaims struct {
 
 // SignIn User with username and password
 func SignIn(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Please SignIn")
-}
-
-// SignUp User
-func SignUp(w http.ResponseWriter, r *http.Request) {
 	var user models.User
 	err := json.NewDecoder(r.Body).Decode(&user)
 	if err != nil {
@@ -82,5 +76,36 @@ func SignUp(w http.ResponseWriter, r *http.Request) {
 	}
 
 	json.NewEncoder(w).Encode(authResponse)
+	return
+}
+
+// SignUp User
+func SignUp(w http.ResponseWriter, r *http.Request) {
+	var user models.User
+	err := json.NewDecoder(r.Body).Decode(&user)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+	}
+
+	logger, _ := zap.NewDevelopment()
+	zap.ReplaceGlobals(logger)
+	zap.S().Infow("signup user is", "info", user, "error", err, "ip", tools.GetIP(r.RemoteAddr))
+
+	if user.UserName == "" || user.Password == "" {
+		authResponse := AuthResponse{
+			Errcode: 1000,
+			Errmsg:  "username or password can't empty",
+		}
+
+		json.NewEncoder(w).Encode(authResponse)
+		return
+	}
+
+	atuhResponse := AuthResponse{
+		Errcode: 200,
+		Errmsg:  "ok",
+	}
+
+	json.NewEncoder(w).Encode(atuhResponse)
 	return
 }
