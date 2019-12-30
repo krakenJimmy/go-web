@@ -15,9 +15,10 @@ import (
 
 // AuthResponse is the result of Auth
 type AuthResponse struct {
-	Errcode int    `json:"errcode"`
-	Errmsg  string `json:"errmsg"`
-	Token   string `json:"token"`
+	Errcode int                    `json:"errcode"`
+	Errmsg  string                 `json:"errmsg"`
+	Token   string                 `json:"token"`
+	Data    map[string]interface{} `json:"data"`
 }
 
 // MyJWTClaims is used for jwt
