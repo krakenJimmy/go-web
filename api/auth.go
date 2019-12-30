@@ -35,9 +35,7 @@ func SignUp(w http.ResponseWriter, r *http.Request) {
 			Errmsg:  "username or password can't empty",
 		}
 
-		response, _ := json.Marshal(authResponse)
-		w.Header().Set("Content-Type", "applicationi/json")
-		w.Write(response)
+		json.NewEncoder(w).Encode(authResponse)
 		return
 	}
 
@@ -47,8 +45,6 @@ func SignUp(w http.ResponseWriter, r *http.Request) {
 		Token:   "success",
 	}
 
-	response, _ := json.Marshal(authResponse)
-	w.Header().Set("Content-Type", "application/json")
-	w.Write(response)
+	json.NewEncoder(w).Encode(authResponse)
 	return
 }
